@@ -1,0 +1,229 @@
+:root {
+  --bg: #141413;
+  --bg-soft: rgba(255, 255, 255, 0.04);
+  --text: #f5f2eb;
+  --muted: rgba(245, 242, 235, 0.62);
+  --accent: #8a2be2;
+  --accent-soft: rgba(138, 43, 226, 0.22);
+  --accent-strong: rgba(138, 43, 226, 0.44);
+  --danger: #ff8d8d;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  --radius: 32px;
+  --ease: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(138, 43, 226, 0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(138, 43, 226, 0.14), transparent 24%),
+    var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+.page-glow {
+  position: fixed;
+  width: 28rem;
+  height: 28rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(138, 43, 226, 0.2), transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+  animation: glow-drift 12s ease-in-out infinite alternate;
+}
+
+.page-glow-left {
+  top: -10rem;
+  left: -8rem;
+}
+
+.page-glow-right {
+  right: -8rem;
+  bottom: -10rem;
+  animation-delay: -6s;
+}
+
+@keyframes glow-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(2rem, 3rem) scale(1.1); }
+}
+
+.shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+}
+
+.hero-card {
+  width: min(100%, 900px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 40px 32px 32px;
+  position: relative;
+  backdrop-filter: blur(20px);
+}
+
+h1 {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  font-size: clamp(1.6rem, 3.4vw, 2.7rem);
+  line-height: 0.98;
+  color: var(--text);
+}
+
+.contacts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 36px;
+  align-items: stretch;
+}
+
+.contact-card {
+  background: var(--bg-soft);
+  border-radius: 24px;
+  padding: 28px 28px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  opacity: 0;
+  animation: card-enter 500ms var(--ease) forwards;
+  transition: background-color var(--ease), box-shadow var(--ease);
+}
+
+.contact-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 32px rgba(138, 43, 226, 0.12);
+}
+
+.contact-card:nth-child(1) { animation-delay: 100ms; }
+.contact-card:nth-child(2) { animation-delay: 250ms; }
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+.contact-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.92rem;
+  transition: background-color var(--ease), color var(--ease), transform var(--ease);
+  overflow: hidden;
+}
+
+.link-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  transform: translateX(4px);
+}
+
+.link-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.link-icon-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.link-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+}
+
+.link-value {
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+@media (max-width: 720px) {
+  .hero-card {
+    padding: 24px 16px 16px;
+    border-radius: 24px;
+  }
+
+  .brand {
+    width: 112px;
+  }
+
+  .contacts-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .contact-card {
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0ms !important;
+  }
+}
