@@ -5,7 +5,8 @@ const contacts = [
     links: [
       { type: "telegram", icon: "telegram.png", label: "Telegram", value: "@NKSV_ILYA", href: "https://t.me/NKSV_ILYA" },
       { type: "email", icon: "mail.png", label: "Почта", value: "ilya.e.nekrasov@yandex.com", href: "mailto:ilya.e.nekrasov@yandex.com" },
-      { type: "messenger", icon: "max.png", label: "Макс", value: "+79126341241", href: "#" }
+      // MAX profile links are copied from the app and look like https://max.ru/u/...
+      { type: "messenger", icon: "max.png", label: "Макс", value: "MAX", href: "https://max.ru/u/f9LHodD0cOLo_WoesEmr9k6pOHwqAUpYrfD3O1uSM3-xWRLFfpbyvDQQpNs" }
     ]
   },
   {
@@ -29,14 +30,19 @@ contacts.forEach(person => {
       ? `<img src="${link.icon}" class="link-icon-img" alt="${link.label}">`
       : `<span class="link-icon ${link.type}">${link.icon}</span>`;
 
+    const hasHref = Boolean(link.href);
+    const tagName = hasHref ? "a" : "span";
+    const hrefAttr = hasHref ? ` href="${link.href}" target="_blank" rel="noopener"` : "";
+    const disabledClass = hasHref ? "" : " contact-link-disabled";
+
     return `
-      <a class="contact-link" href="${link.href}" target="_blank" rel="noopener">
+      <${tagName} class="contact-link${disabledClass}"${hrefAttr}>
         ${iconContent}
         <span class="link-text">
           <span class="link-label">${link.label}</span>
           <span class="link-value">${link.value}</span>
         </span>
-      </a>
+      </${tagName}>
     `;
   }).join("");
 
